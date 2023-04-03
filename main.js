@@ -1,9 +1,8 @@
-img = "";
 status = "";
 objects = [];
+som = "";
 
 function preload(){
-    img = loadImage('dog_cat.jpg');
     som = loadSound('salamisound-7927385-smoke-detector-30-seconds-10.mp3');
 }
 
@@ -44,16 +43,25 @@ function draw(){
         detector.detect(video, gotResult);
         for(i = 0; i < objects.length; i++){
             document.getElementById("status").innerHTML = "Status: Objeto Detectado";
-            document.getElementById("numberOfObjects").innerHTML = "Bebê detectado";
             fill(r,g,b);
             percent = floor(objects[i].confidence * 100);
             text(objects[i].label + " " + percent + "%", objects[i].x, objects[i].y);
             noFill();
             stroke(r,g,b);
             rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
+
+
+            if(objects[i].label = "person"){
+             document.getElementById("numberOfObjects").innerHTML = "Bebê detectado";
+            }
+            else{
+             document.getElementById("numberOfObjects").innerHTML = "Bebê não detectado";
+             som.play();
+            }
         }
-    }
-    if(objects == 0){
-        som = true;
+        if(objects.length == 0){
+        document.getElementById("numberOfObjects").innerHTML = "Bebê não detectado";
+        som.play();
+        }
     }
 }
